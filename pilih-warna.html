@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pilih Palet Warna — Portofolio Silvyani</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 20px 80px;
+    font-family: "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    background: #eef1f5;
+    color: #1c2434;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .page-title {
+    margin: 0 0 8px;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 800;
+    letter-spacing: -.02em;
+  }
+  .page-lead {
+    margin: 0 0 40px;
+    color: #5a6779;
+    font-size: .98rem;
+    max-width: 68ch;
+  }
+
+  /* ---------- kartu palet ---------- */
+  .pal {
+    margin-bottom: 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(20,28,45,.04), 0 14px 40px rgba(20,28,45,.09);
+  }
+
+  .pal__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 24px;
+    border-bottom: 1px solid #e8ebf0;
+  }
+  .pal__num {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: var(--p);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 800;
+  }
+  .pal__name { font-size: 1.02rem; font-weight: 700; }
+  .pal__desc { font-size: .85rem; color: #6b7789; margin-top: 2px; }
+
+  .swatches { display: flex; gap: 6px; margin-left: auto; }
+  .swatches i {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    border: 1px solid rgba(0,0,0,.07);
+  }
+
+  /* ---------- area demo ---------- */
+  .demo { padding: 26px 24px 30px; background: var(--bg); }
+
+  .mini-hero {
+    padding: 24px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, var(--soft) 0%, var(--bg) 100%);
+    border: 1px solid var(--line);
+    margin-bottom: 18px;
+  }
+
+  .mini-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--line);
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--p-dark);
+    margin-bottom: 14px;
+  }
+  .mini-pill b {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #16a34a;
+  }
+
+  .mini-name {
+    margin: 0 0 6px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    line-height: 1.15;
+  }
+  .mini-name span { color: var(--p); }
+
+  .mini-role {
+    margin: 0 0 16px;
+    font-size: .88rem;
+    font-weight: 600;
+    color: var(--p-dark);
+  }
+  .mini-role em { font-style: normal; color: var(--p); opacity: .5; padding: 0 3px; }
+
+  .mini-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+  .mini-btn {
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-size: .82rem;
+    font-weight: 600;
+  }
+  .mini-btn--fill { background: var(--p); color: #fff; }
+  .mini-btn--line {
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+
+  .mini-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+
+  .mini-card {
+    padding: 16px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: 0 6px 18px rgba(20,28,45,.06);
+  }
+
+  .mini-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--soft);
+    color: var(--p-dark);
+    font-size: .64rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    margin-bottom: 9px;
+  }
+  .mini-title {
+    margin: 0 0 5px;
+    font-size: .88rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .mini-text {
+    margin: 0;
+    font-size: .78rem;
+    line-height: 1.55;
+    color: #66748a;
+  }
+
+  .mini-stat {
+    text-align: center;
+    padding: 18px 14px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: 0 6px 18px rgba(20,28,45,.06);
+    position: relative;
+    overflow: hidden;
+  }
+  .mini-stat::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: var(--p);
+  }
+  .mini-stat b {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -.02em;
+  }
+  .mini-stat span { font-size: .74rem; color: #74839a; }
+
+  .mini-avatar {
+    display: grid;
+    place-items: center;
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: var(--p);
+    color: #fff;
+    font-size: .78rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  /* ---------- palet ---------- */
+
+  .p1 {
+    --p: #4f7d5c; --p-dark: #3b6147;
+    --soft: #edf4ee; --line: #dbe8de; --bg: #ffffff; --ink: #1b2a20;
+  }
+  .p2 {
+    --p: #c2643c; --p-dark: #9d4e2c;
+    --soft: #fbeee7; --line: #f0dbd0; --bg: #fffefd; --ink: #2e1e16;
+  }
+  .p3 {
+    --p: #6d5bd0; --p-dark: #5341b4;
+    --soft: #f0edfc; --line: #e0daf8; --bg: #fefdff; --ink: #221c3a;
+  }
+  .p4 {
+    --p: #0f766e; --p-dark: #0a5952;
+    --soft: #e8f5f3; --line: #cfe9e5; --bg: #fdfffe; --ink: #10241f;
+  }
+  .p5 {
+    --p: #33383f; --p-dark: #14181d;
+    --soft: #f1f2f4; --line: #e0e2e6; --bg: #ffffff; --ink: #16191d;
+  }
+  .p6 {
+    --p: #b0466a; --p-dark: #8d3352;
+    --soft: #fbeef2; --line: #f2d9e1; --bg: #fffdfe; --ink: #33131f;
+  }
+
+  @media (max-width: 760px) {
+    .mini-row { grid-template-columns: 1fr; }
+    .swatches { margin-left: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1 class="page-title">Pilih Palet Warna</h1>
+  <p class="page-lead">
+    Lihat keenam pilihan di bawah, lalu bilang nomornya berapa.
+    Setiap blok menampilkan contoh nyata: bagian atas (hero), kartu bukti, dan kartu angka.
+    Perhatikan bagian <strong>yang berwarna</strong> saja &mdash; itu yang akan berubah di website kamu.
+  </p>
+
+  <!-- 1 -->
+  <section class="pal p1">
+    <div class="pal__head">
+      <span class="pal__num">1</span>
+      <div>
+        <div class="pal__name">Hijau Sage</div>
+        <div class="pal__desc">Tenang, alami, menenangkan. Tidak agresif.</div>
+      </div>
+      <div class="swatches">
+        <i style="background:#4f7d5c"></i>
+        <i style="background:#3b6147"></i>
+        <i style="background:#edf4ee"></i>
+        <i style="background:#1b2a20"></i>
+      </div>
+    </div>
+    <div class="demo">
+      <div class="mini-hero">
+        <span class="mini-pill"><b></b>Terbuka untuk peluang baru</span>
+        <h3 class="mini-name">Silvyani Nurlaila <span>Husnina Fajrin</span></h3>
+        <p class="mini-role">Technical Support <em>&bull;</em> Product Development</p>
+        <div class="mini-actions">
+          <span class="mini-btn mini-btn--fill">Hubungi via WhatsApp</span>
+          <span class="mini-btn mini-btn--line">Kirim Email</span>
+        </div>
+      </div>
+      <div class="mini-row">
+        <div class="mini-card">
+          <span class="mini-badge">Sertifikasi</span>
+          <h4 class="mini-title">Associate Data Scientist</h4>
+          <p class="mini-text">Sertifikasi kompetensi dari BNSP, tahun 2024.</p>
+        </div>
+        <div class="mini-card">
+          <span class="mini-avatar">SS</span>
+          <h4 class="mini-title">Technical Support</h4>
+          <p class="mini-text">PT. Sasana Solusi Digital &middot; 2026 &ndash; sekarang</p>
+        </div>
+        <div class="mini-stat">
+          <b>3.64</b>
+          <span>IPK Ilmu Komputer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="pal p2">
+    <div class="pal__head">
+      <span class="pal__num">2</span>
+      <div>
+        <div class="pal__name">Terracotta Hangat</div>
+        <div class="pal__desc">Hangat, personal, membumi. Berkesan ramah.</div>
+      </div>
+      <div class="swatches">
+        <i style="background:#c2643c"></i>
+        <i style="background:#9d4e2c"></i>
+        <i style="background:#fbeee7"></i>
+        <i style="background:#2e1e16"></i>
+      </div>
+    </div>
+    <div class="demo">
+      <div class="mini-hero">
+        <span class="mini-pill"><b></b>Terbuka untuk peluang baru</span>
+        <h3 class="mini-name">Silvyani Nurlaila <span>Husnina Fajrin</span></h3>
+        <p class="mini-role">Technical Support <em>&bull;</em> Product Development</p>
+        <div class="mini-actions">
+          <span class="mini-btn mini-btn--fill">Hubungi via WhatsApp</span>
+          <span class="mini-btn mini-btn--line">Kirim Email</span>
+        </div>
+      </div>
+      <div class="mini-row">
+        <div class="mini-card">
+          <span class="mini-badge">Sertifikasi</span>
+          <h4 class="mini-title">Associate Data Scientist</h4>
+          <p class="mini-text">Sertifikasi kompetensi dari BNSP, tahun 2024.</p>
+        </div>
+        <div class="mini-card">
+          <span class="mini-avatar">SS</span>
+          <h4 class="mini-title">Technical Support</h4>
+          <p class="mini-text">PT. Sasana Solusi Digital &middot; 2026 &ndash; sekarang</p>
+        </div>
+        <div class="mini-stat">
+          <b>3.64</b>
+          <span>IPK Ilmu Komputer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="pal p3">
+    <div class="pal__head">
+      <span class="pal__num">3</span>
+      <div>
+        <div class="pal__name">Ungu Lavender</div>
+        <div class="pal__desc">Lembut, modern, sedikit kreatif. Tidak kaku.</div>
+      </div>
+      <div class="swatches">
+        <i style="background:#6d5bd0"></i>
+        <i style="background:#5341b4"></i>
+        <i style="background:#f0edfc"></i>
+        <i style="background:#221c3a"></i>
+      </div>
+    </div>
+    <div class="demo">
+      <div class="mini-hero">
+        <span class="mini-pill"><b></b>Terbuka untuk peluang baru</span>
+        <h3 class="mini-name">Silvyani Nurlaila <span>Husnina Fajrin</span></h3>
+        <p class="mini-role">Technical Support <em>&bull;</em> Product Development</p>
+        <div class="mini-actions">
+          <span class="mini-btn mini-btn--fill">Hubungi via WhatsApp</span>
+          <span class="mini-btn mini-btn--line">Kirim Email</span>
+        </div>
+      </div>
+      <div class="mini-row">
+        <div class="mini-card">
+          <span class="mini-badge">Sertifikasi</span>
+          <h4 class="mini-title">Associate Data Scientist</h4>
+          <p class="mini-text">Sertifikasi kompetensi dari BNSP, tahun 2024.</p>
+        </div>
+        <div class="mini-card">
+          <span class="mini-avatar">SS</span>
+          <h4 class="mini-title">Technical Support</h4>
+          <p class="mini-text">PT. Sasana Solusi Digital &middot; 2026 &ndash; sekarang</p>
+        </div>
+        <div class="mini-stat">
+          <b>3.64</b>
+          <span>IPK Ilmu Komputer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="pal p4">
+    <div class="pal__head">
+      <span class="pal__num">4</span>
+      <div>
+        <div class="pal__name">Teal Petrol</div>
+        <div class="pal__desc">Masih terasa "teknologi", tapi tidak biru dan tidak kaku.</div>
+      </div>
+      <div class="swatches">
+        <i style="background:#0f766e"></i>
+        <i style="background:#0a5952"></i>
+        <i style="background:#e8f5f3"></i>
+        <i style="background:#10241f"></i>
+      </div>
+    </div>
+    <div class="demo">
+      <div class="mini-hero">
+        <span class="mini-pill"><b></b>Terbuka untuk peluang baru</span>
+        <h3 class="mini-name">Silvyani Nurlaila <span>Husnina Fajrin</span></h3>
+        <p class="mini-role">Technical Support <em>&bull;</em> Product Development</p>
+        <div class="mini-actions">
+          <span class="mini-btn mini-btn--fill">Hubungi via WhatsApp</span>
+          <span class="mini-btn mini-btn--line">Kirim Email</span>
+        </div>
+      </div>
+      <div class="mini-row">
+        <div class="mini-card">
+          <span class="mini-badge">Sertifikasi</span>
+          <h4 class="mini-title">Associate Data Scientist</h4>
+          <p class="mini-text">Sertifikasi kompetensi dari BNSP, tahun 2024.</p>
+        </div>
+        <div class="mini-card">
+          <span class="mini-avatar">SS</span>
+          <h4 class="mini-title">Technical Support</h4>
+          <p class="mini-text">PT. Sasana Solusi Digital &middot; 2026 &ndash; sekarang</p>
+        </div>
+        <div class="mini-stat">
+          <b>3.64</b>
+          <span>IPK Ilmu Komputer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="pal p5">
+    <div class="pal__head">
+      <span class="pal__num">5</span>
+      <div>
+        <div class="pal__name">Grafit Monokrom</div>
+        <div class="pal__desc">Minimalis dan tegas. Hampir tanpa warna, sangat netral.</div>
+      </div>
+      <div class="swatches">
+        <i style="background:#33383f"></i>
+        <i style="background:#14181d"></i>
+        <i style="background:#f1f2f4"></i>
+        <i style="background:#8a929e"></i>
+      </div>
+    </div>
+    <div class="demo">
+      <div class="mini-hero">
+        <span class="mini-pill"><b></b>Terbuka untuk peluang baru</span>
+        <h3 class="mini-name">Silvyani Nurlaila <span>Husnina Fajrin</span></h3>
+        <p class="mini-role">Technical Support <em>&bull;</em> Product Development</p>
+        <div class="mini-actions">
+          <span class="mini-btn mini-btn--fill">Hubungi via WhatsApp</span>
+          <span class="mini-btn mini-btn--line">Kirim Email</span>
+        </div>
+      </div>
+      <div class="mini-row">
+        <div class="mini-card">
+          <span class="mini-badge">Sertifikasi</span>
+          <h4 class="mini-title">Associate Data Scientist</h4>
+          <p class="mini-text">Sertifikasi kompetensi dari BNSP, tahun 2024.</p>
+        </div>
+        <div class="mini-card">
+          <span class="mini-avatar">SS</span>
+          <h4 class="mini-title">Technical Support</h4>
+          <p class="mini-text">PT. Sasana Solusi Digital &middot; 2026 &ndash; sekarang</p>
+        </div>
+        <div class="mini-stat">
+          <b>3.64</b>
+          <span>IPK Ilmu Komputer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="pal p6">
+    <div class="pal__head">
+      <span class="pal__num">6</span>
+      <div>
+        <div class="pal__name">Rose Maroon</div>
+        <div class="pal__desc">Feminin tapi tetap serius. Berani dan khas.</div>
+      </div>
+      <div class="swatches">
+        <i style="background:#b0466a"></i>
+        <i style="background:#8d3352"></i>
+        <i style="background:#fbeef2"></i>
+        <i style="background:#33131f"></i>
+      </div>
+    </div>
+    <div class="demo">
+      <div class="mini-hero">
+        <span class="mini-pill"><b></b>Terbuka untuk peluang baru</span>
+        <h3 class="mini-name">Silvyani Nurlaila <span>Husnina Fajrin</span></h3>
+        <p class="mini-role">Technical Support <em>&bull;</em> Product Development</p>
+        <div class="mini-actions">
+          <span class="mini-btn mini-btn--fill">Hubungi via WhatsApp</span>
+          <span class="mini-btn mini-btn--line">Kirim Email</span>
+        </div>
+      </div>
+      <div class="mini-row">
+        <div class="mini-card">
+          <span class="mini-badge">Sertifikasi</span>
+          <h4 class="mini-title">Associate Data Scientist</h4>
+          <p class="mini-text">Sertifikasi kompetensi dari BNSP, tahun 2024.</p>
+        </div>
+        <div class="mini-card">
+          <span class="mini-avatar">SS</span>
+          <h4 class="mini-title">Technical Support</h4>
+          <p class="mini-text">PT. Sasana Solusi Digital &middot; 2026 &ndash; sekarang</p>
+        </div>
+        <div class="mini-stat">
+          <b>3.64</b>
+          <span>IPK Ilmu Komputer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="page-lead" style="margin-top:36px">
+    Kalau tidak ada yang cocok sama sekali, sebut saja warna favoritmu
+    (misalnya "hijau daun", "coklat kopi", "navy tapi lebih gelap") &mdash; nanti aku buatkan yang baru.
+  </p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,207 @@
+===========================================================
+  TARUH GAMBAR DI FOLDER INI
+===========================================================
+
+Cara pakai:
+
+  1. Beri nama file gambar sesuai KODE di bawah
+  2. Taruh di folder ini (assets\_mentah)
+  3. Klik dua kali file  "siapkan-gambar.bat"  di folder utama
+  4. Selesai - gambar otomatis dikecilkan, dikompres,
+     di-rename, dan index.html diperbarui sendiri
+
+
+-----------------------------------------------------------
+  DAFTAR KODE
+-----------------------------------------------------------
+
+  KODE   UNTUK APA                          NAMA FILE JADI
+  ----   --------------------------------   ------------------------------
+  b1  =  Sertifikat BNSP                    assets\bukti\sertifikat-bnsp.jpg
+  b2  =  Sertifikat magang Kemenag          assets\bukti\sertifikat-kemenag.jpg
+  b3  =  Sertifikat magang Mitra Trend      assets\bukti\sertifikat-mitra-trend.jpg
+  b4  =  Foto narasumber webinar           assets\bukti\webinar-piagam.jpg
+  b5  =  Artikel panduan Tantri POS         assets\bukti\artikel-tantri-pos.jpg
+  b6  =  Video panduan                      assets\bukti\video-panduan.jpg
+  b7  =  Laporan magang Kemenag             assets\bukti\laporan-magang-kemenag.jpg
+  b8  =  Laporan magang Mitra Trend         assets\bukti\laporan-magang-mitra-trend.jpg
+  b10 =  Foto sesi training pengguna        assets\bukti\training-pengguna.jpg
+  b11 =  Hasil survei NPS                   assets\bukti\laporan-nps.jpg
+  b12 =  Rata-rata pelayanan (SLA)           assets\bukti\dashboard-sla.jpg
+  b13 =  Sertifikat CCNA 1                   assets\bukti\sertifikat-ccna-1.jpg
+  b14 =  Sertifikat CCNA 2                   assets\bukti\sertifikat-ccna-2.jpg
+  b15 =  Sertifikat keempat                 assets\bukti\sertifikat-keempat.jpg
+  b16 =  Sertifikat TOEFL                   assets\bukti\sertifikat-toefl.jpg
+  b17 =  Gambar proyek 1                    assets\bukti\proyek-1.jpg
+  b18 =  Gambar proyek 2                    assets\bukti\proyek-2.jpg
+  b19 =  Gambar proyek 3                    assets\bukti\proyek-3.jpg
+  b20 =  Gambar proyek 4                    assets\bukti\proyek-4.jpg
+
+  l1  =  Logo Sasana Solusi Digital         assets\logo\sasana-solusi-digital.png
+  l2  =  Logo Lakes Konstelasi Data         assets\logo\lakes-konstelasi-data.png
+  l3  =  Logo Ganesha Operation             assets\logo\ganesha-operation.png
+  l4  =  Logo Kemenag Kota Bandung          assets\logo\kemenag-bandung.png
+  l5  =  Logo Mitra Trend Computer          assets\logo\mitra-trend-computer.png
+
+  CATATAN: b7 dan b8 (laporan magang) sifatnya OPSIONAL -
+  pakai kalau laporannya memang ada. Blok "Pengalaman Magang"
+  sudah tidak ada, jadi laporannya menempel di kartu proyek
+  (p2 - Kemenag). Cara menempelkan kartunya ada di README,
+  bagian "Menambah laporan magang".
+
+  CATATAN: b2 dan b3 (sertifikat magang) sekarang tampil di
+  section Pendidikan, di bawah label "Lampiran" - bukan di
+  Sertifikasi.
+
+  CATATAN: b17-b20 (gambar proyek) dipakai kalau proyeknya punya
+  tangkapan layar / poster. Setelah diproses skrip, kartunya
+  ditempel manual di section Proyek (index.html) - polanya ada
+  di komentar dalam section itu dan di README, bagian
+  "Menambah proyek". Kalau proyeknya cuma berupa cerita tanpa
+  gambar, cukup pakai kartu teks seperti kartu Tugas Akhir yang
+  sudah ada.
+
+  CATATAN: b15 (sertifikat keempat) belum muncul di halaman.
+  Setelah diproses skrip, buka index.html, cari section
+  Sertifikasi, hapus tanda komentar pada contoh kartu di
+  dalamnya, lalu sesuaikan label, judul, penerbit, tahun, dan
+  nama gambarnya. Jangan lupa blok lightbox-nya di akhir
+  <main>. Kartu sertifikat otomatis tersusun 2 per baris dan
+  kalau jumlahnya ganjil, kartu terakhirnya dipusatkan di
+  tengah.
+
+  CATATAN: b16 (TOEFL) sudah tampil di halaman, tapi masih
+  berupa KARTU TEKS karena scan sertifikatnya belum ada.
+  Begitu gambarnya siap: taruh sebagai b16 di folder ini, klik
+  siapkan-gambar.bat, lalu ubah kartunya jadi kartu gambar
+  seperti CCNA (contohnya ada di README).
+
+  CATATAN: kalau file sertifikatnya berbentuk PDF, JANGAN taruh
+  di sini - skrip ini hanya bisa membaca gambar (jpg, png, dll).
+  Kirim PDF-nya, nanti diubah dulu jadi JPG (halaman pertamanya
+  digambar), baru diproses seperti biasa. Contoh yang sudah
+  jalan: Sertifikat CCNA 1 & 2.
+
+
+-----------------------------------------------------------
+  KHUSUS 2 SURAT (tidak lewat skrip, tidak pakai kode)
+-----------------------------------------------------------
+
+  Dua kartu surat di halaman memakai file PDF, bukan gambar.
+  Jadi TIDAK perlu ditaruh di folder ini dan TIDAK diproses
+  oleh siapkan-gambar.bat. File-nya sudah terpasang:
+
+    assets\bukti\surat-keterangan-pelatihan.pdf
+        -> kartu surat di LAKES (masa pelatihan)
+
+    assets\bukti\surat-keterangan-kerja.pdf
+        -> kartu surat di GANESHA OPERATION (masa kerja)
+
+  Kalau mau mengganti isinya, timpa file itu dengan nama yang
+  sama persis. Kalau suratnya masih berupa foto, ubah dulu
+  jadi PDF - bisa lewat Word, Google Docs
+  (File > Download > PDF), atau HP (Print > Save as PDF).
+
+  Tombolnya membuka PDF di tab baru. Karena filenya ada di
+  folder website, alamatnya bisa diakses siapa pun yang tahu
+  - jadi sensor bagian yang tidak ingin dipublikasikan.
+
+
+-----------------------------------------------------------
+  FOTO PROFIL (di hero, tidak lewat skrip)
+-----------------------------------------------------------
+
+  Foto yang tampil bulat di bagian atas halaman (hero):
+
+    assets\foto-profil.jpg
+
+  Sekarang isinya masih gambar contoh (siluet). Ganti dengan
+  fotomu sendiri: timpa file itu, nama harus tetap
+  "foto-profil.jpg". Tidak perlu dikecilkan dulu, tapi foto
+  yang sisi terpanjangnya sekitar 800-1200 px sudah lebih
+  dari cukup.
+
+  Tips: pakai foto setengah badan yang mukanya kelihatan,
+  latar polos. Foto ini dipotong bulat otomatis, jadi
+  bagian tengahnya yang paling penting.
+
+
+Contoh penamaan file:
+
+  b4.jpg        ->  piagam webinar
+  b5.png        ->  artikel
+  l3.png        ->  logo Ganesha Operation
+
+Huruf besar/kecil tidak masalah. File yang namanya tidak
+diawali kode akan dilewati dan diberi tahu di layar.
+
+
+-----------------------------------------------------------
+  YANG DILAKUKAN SKRIP OTOMATIS
+-----------------------------------------------------------
+
+  - Foto dirapikan otomatis kalau posisinya miring
+    (membaca data EXIF dari kamera HP)
+
+  - Ukuran akhir gambar bukti: 1600 x 900 piksel (16:9)
+    Gambar muat (fit) di tengah kanvas, jadi TIDAK ada
+    bagian yang terpotong
+
+  - Ukuran akhir logo: 320 x 320 piksel (kotak), latar
+    transparan. Pinggiran logo yang kosong/putih dipotong
+    otomatis dulu, jadi logo apa pun bentuk aslinya (JPG,
+    screenshot, PNG berbingkai putih) hasilnya seragam dan
+    tandanya tampil besar.
+
+    Di halaman, logo dipasang di lencana BULAT 58px berlatar
+    putih dengan cincin terracotta tipis - senada dengan foto
+    profil di hero. Jadi kirim logo apa adanya saja.
+
+  - Gambar bukti dikompres jadi JPEG kualitas 85%
+    Logo disimpan sebagai PNG
+
+  - index.html diperbarui otomatis, tidak perlu edit manual
+    (cadangan lama disimpan sebagai index.html.bak)
+
+
+-----------------------------------------------------------
+  PENTING - SENSOR DULU SEBELUM DITARUH
+-----------------------------------------------------------
+
+  Dokumen internal (system design) dan surat keterangan TIDAK memakai gambar
+  sama sekali, jadi tidak ada yang perlu ditaruh di folder ini. Kalau
+  sewaktu-waktu mau dipratinjau, sensor dulu:
+    - nama client / merchant
+    - harga dan angka transaksi
+    - data pelanggan
+    - URL internal atau alamat server
+
+  Untuk piagam dan sertifikat:
+    - tanda tangan
+    - nomor sertifikat
+    - QR code
+
+  Skrip ini hanya mengecilkan gambar. Tidak bisa menghapus
+  atau menyensor isi gambar. Sensor dulu di aplikasi lain,
+  baru taruh di sini.
+
+
+-----------------------------------------------------------
+  KALAU INGIN MENGUBAH CARA KERJA
+-----------------------------------------------------------
+
+  Buka PowerShell di folder utama, lalu jalankan:
+
+    .\siapkan-gambar.ps1                    (setelan standar)
+    .\siapkan-gambar.ps1 -Mode crop         (penuhi kanvas, pinggir terpotong)
+    .\siapkan-gambar.ps1 -Quality 75        (file lebih kecil, kualitas turun)
+
+  Mode "fit"  (standar) = gambar utuh, tanpa bingkai kosong
+                          (paling aman untuk sertifikat & dokumen)
+  Mode "pad"            = gambar utuh, ada bingkai kosong 16:9
+  Mode "crop"           = kanvas penuh, pinggiran terpotong
+                          (bagus untuk FOTO, jelek untuk dokumen)
+
+  Catatan: mode itu hanya berlaku untuk gambar bukti (b1-b14).
+  Logo (l1-l5) selalu diproses sama: dipotong pinggirannya lalu
+  dibuat kotak 320 x 320.

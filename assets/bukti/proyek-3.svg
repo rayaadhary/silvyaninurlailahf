@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Pratinjau proyek berikutnya">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fdf9f6"/>
+      <stop offset="1" stop-color="#f7e7dd"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1430" cy="760" r="230" fill="#ffffff" opacity="0.45"/>
+
+  <g>
+    <rect x="300" y="150" width="1000" height="600" rx="26" fill="#ffffff" stroke="#f0dbd0" stroke-width="4"/>
+    <line x1="300" y1="216" x2="1300" y2="216" stroke="#f6e6dc" stroke-width="4"/>
+    <circle cx="338" cy="183" r="8" fill="#f3ddcf"/>
+    <circle cx="368" cy="183" r="8" fill="#f3ddcf"/>
+    <circle cx="398" cy="183" r="8" fill="#f3ddcf"/>
+    <rect x="1110" y="166" width="150" height="30" rx="15" fill="#fdf1e9"/>
+
+    <rect x="344" y="262" width="420" height="200" rx="20" fill="#fdf1e9"/>
+    <rect x="368" y="292" width="150" height="16" rx="8" fill="#eccbb8"/>
+    <rect x="368" y="330" width="250" height="14" rx="7" fill="#f3ddcf"/>
+    <rect x="368" y="360" width="200" height="14" rx="7" fill="#f3ddcf"/>
+
+    <rect x="800" y="262" width="460" height="200" rx="20" fill="#f6e6dc"/>
+    <rect x="828" y="292" width="130" height="16" rx="8" fill="#e8bca4"/>
+    <rect x="828" y="330" width="290" height="14" rx="7" fill="#f0dbd0"/>
+    <rect x="828" y="360" width="230" height="14" rx="7" fill="#f0dbd0"/>
+
+    <rect x="344" y="490" width="420" height="220" rx="20" fill="#fdf7f3"/>
+    <circle cx="554" cy="586" r="44" fill="none" stroke="#f0dbd0" stroke-width="14"/>
+    <path d="M554 542 a44 44 0 0 1 38 66" fill="none" stroke="#d98b64" stroke-width="14" stroke-linecap="round"/>
+    <rect x="470" y="654" width="168" height="14" rx="7" fill="#f3ddcf"/>
+
+    <rect x="800" y="490" width="460" height="220" rx="20" fill="#fdf7f3"/>
+    <rect x="828" y="520" width="404" height="16" rx="8" fill="#f6e6dc"/>
+    <rect x="828" y="554" width="330" height="16" rx="8" fill="#f6e6dc"/>
+    <rect x="828" y="588" width="370" height="16" rx="8" fill="#f6e6dc"/>
+    <rect x="828" y="622" width="260" height="16" rx="8" fill="#f6e6dc"/>
+    <rect x="828" y="664" width="120" height="30" rx="15" fill="#f3ddcf"/>
+  </g>
+</svg>

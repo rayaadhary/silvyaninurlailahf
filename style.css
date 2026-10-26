@@ -1,0 +1,1557 @@
+/* =========================================================
+   Portofolio — Silvyani Nurlaila Husnina Fajrin
+   Palet  : Terracotta Hangat
+   Gaya   : bersih, lapang, rata tengah
+   HTML + CSS murni, ditambah satu skrip kecil penanda menu
+   ========================================================= */
+
+:root {
+  /* ================= WARNA =================
+     Satu warna = satu peran. Tidak ada warna yang dipakai untuk dua
+     maksud berbeda, jadi artinya bisa ditebak tanpa berpikir.
+
+     TERAKOTA — "yang bisa disentuh / sedang aktif"
+       --brand        tombol, tautan, titik poin, menu yang aktif
+       --brand-dark   tombol & tautan saat disentuh kursor
+       --brand-deep   latar bagian Kontak (satu-satunya blok gelap)
+
+     TERAKOTA MUDA — "permukaan netral, bukan tombol"
+       --brand-soft   pil label, latar foto profil
+       --brand-tint   garis rambut, cincin tipis, judul kelompok
+
+     NETRAL HANGAT — "teks, makin ke bawah makin kecil perannya"
+       --ink          judul & nama
+       --body         isi paragraf
+       --muted        keterangan: tanggal, periode, catatan kecil
+
+     GARIS & LATAR
+       --line         garis pemisah halus
+       --line-2       garis yang sedikit lebih tegas
+       --bg           latar utama (putih)
+       --bg-alt       latar bagian selang-seling (krem)
+
+     DI ATAS GELAP — khusus bagian Kontak & footer
+       --on-dark        teks utama
+       --on-dark-muted  teks sekunder
+       --on-dark-accent aksen: eyebrow, ikon, garis
+     ========================================= */
+  --brand:      #b65a33;
+  --brand-dark: #9d4e2c;
+  --brand-deep: #7a3a20;
+  --brand-soft: #fbeee7;
+  --brand-tint: #f7e4d9;
+
+  --ink:   #2e1e16;
+  --body:  #6b5648;
+  --muted: #7d6857;
+
+  --line:    #efe3da;
+  --line-2:  #e6d5c9;
+  --bg:      #ffffff;
+  --bg-alt:  #fdf9f6;
+
+  --on-dark:        #f2e0d5;
+  --on-dark-muted:  #d8b8a5;
+  --on-dark-accent: #f0b89a;
+
+  /* bentuk */
+  --radius:    16px;
+  --radius-sm: 11px;
+  --radius-lg: 22px;
+
+  --shadow-sm: 0 1px 2px rgba(46, 30, 22, .04);
+  --shadow:    0 2px 6px rgba(46, 30, 22, .04), 0 14px 34px rgba(46, 30, 22, .06);
+  --shadow-lg: 0 4px 10px rgba(46, 30, 22, .05), 0 24px 56px rgba(46, 30, 22, .11);
+
+  /* ================= TIPOGRAFI =================
+     Satu huruf untuk seluruh halaman. Plus Jakarta Sans dipakai karena
+     bentuknya lembut dan lebar hurufnya rata — terbaca rapi di ukuran
+     kecil maupun besar. Fallback ke Inter/Segoe UI kalau font daring
+     gagal dimuat (mis. sedang offline).
+     Bedanya dijaga lewat tiga hal saja — ukuran, ketebalan, dan jarak huruf. */
+  --font-body: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* ruang */
+  --wrap:  1040px;
+  --nav-h: 66px;
+  --gap:   22px;
+}
+
+/* ------------------------- dasar ------------------------- */
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  /* judul section mendarat ~50px di bawah navbar, bukan jauh di bawahnya */
+  scroll-padding-top: calc(var(--nav-h) - 40px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--body);
+  background: var(--bg);
+  overflow-x: hidden; /* cadangan untuk peramban lama */
+  /* clip tidak membuat scroll container, jadi navbar sticky tetap bekerja */
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Semua judul memakai huruf, ketebalan, dan jarak huruf yang sama dengan
+   baris peran di hero — cuma ukurannya yang berbeda. Jadi seluruh halaman
+   terasa satu suara: tenang, tidak kaku, tidak berteriak. */
+h1, h2, h3, h4 {
+  font-family: inherit;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.22;
+  margin: 0;
+  letter-spacing: -.018em;
+}
+p { margin: 0 0 1rem; text-wrap: pretty; }
+p:last-child { margin-bottom: 0; }
+a { color: var(--brand-dark); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Cincin fokus yang konsisten untuk pengguna keyboard. */
+a:focus-visible {
+  outline: 2px solid var(--brand-dark);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.contact-bullet:focus-visible {
+  outline-color: var(--on-dark-accent);
+}
+strong { color: var(--ink); font-weight: 600; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+.container {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: 26px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 900;
+  background: var(--brand-dark);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+.skip-link:focus { left: 0; text-decoration: none; }
+
+/* ------------------ indikator gulir ---------------------- */
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 150;
+  width: 100%;
+  height: 2px;
+  background: var(--brand);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+@supports (animation-timeline: scroll()) {
+  .progress {
+    animation: progress-grow linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes progress-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ------------------------- navbar ------------------------ */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  /* Navbar jadi bagian tersendiri dari halaman: di atas hero dan Kontak
+     (dua blok gelap) ia ikut gelap; di atas bagian terang ia berubah krem.
+     Perpindahannya diatur skrip di bawah lewat kelas .nav--dark. */
+  background: var(--bg-alt);
+  border-bottom: 1px solid transparent;
+  transition: background .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.nav.is-scrolled {
+  background: rgba(253, 249, 246, .92);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  backdrop-filter: saturate(180%) blur(14px);
+  border-bottom-color: var(--line);
+  box-shadow: 0 8px 24px rgba(46, 30, 22, .05);
+}
+
+/* versi gelap: dipakai selama navbar berada di atas hero atau Kontak */
+.nav--dark {
+  background: var(--brand-deep);
+  border-bottom-color: rgba(255, 255, 255, .1);
+}
+.nav--dark.is-scrolled {
+  background: rgba(122, 58, 32, .94);
+  border-bottom-color: rgba(255, 255, 255, .16);
+  box-shadow: 0 8px 24px rgba(46, 30, 22, .18);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav__menu { display: flex; align-items: center; gap: 2px; }
+
+.nav__menu a {
+  padding: 8px 15px;
+  border-radius: 999px;
+  font-size: .93rem;
+  font-weight: 600;
+  letter-spacing: -.008em;
+  color: var(--body);
+  transition: background .2s ease, color .2s ease;
+}
+.nav__menu a:hover {
+  background: var(--brand-soft);
+  color: var(--brand-dark);
+  text-decoration: none;
+}
+
+/* di atas latar gelap, menu ikut terang */
+.nav--dark .nav__menu a { color: var(--on-dark); }
+.nav--dark .nav__menu a:hover {
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+}
+
+/* --- penanda menu yang sedang aktif ---
+   Kelas .is-active dipasang oleh skrip kecil di bagian bawah halaman,
+   mengikuti bagian yang sedang dilihat.
+   :focus-visible hanya untuk navigasi keyboard. */
+
+.nav__menu a.is-active,
+.nav__menu a:focus-visible,
+.nav__menu a:active {
+  background: var(--brand);
+  color: #fff;
+  text-decoration: none;
+}
+.nav--dark .nav__menu a.is-active,
+.nav--dark .nav__menu a:focus-visible,
+.nav--dark .nav__menu a:active {
+  background: var(--on-dark-accent);
+  color: var(--brand-deep);
+}
+
+/* -------------------------- hero ------------------------- */
+
+.hero {
+  background: var(--brand-deep);
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  color: var(--on-dark);
+}
+
+/* label kecil di atas nama - penanda bahwa ini bagian Profil */
+.hero__eyebrow {
+  margin: 0 0 16px;
+  font-family: var(--font-body);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--on-dark-accent);
+}
+
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Hero mengisi satu layar penuh (dikurangi tinggi navbar), jadi saat
+     halaman pertama kali dibuka yang terlihat utuh hanya bagian Profil. */
+  min-height: calc(100vh - var(--nav-h));
+  min-height: calc(100svh - var(--nav-h));
+  padding-block: clamp(28px, 4vw, 48px) clamp(32px, 4.5vw, 56px);
+  max-width: 780px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.hero__name {
+  font-size: clamp(1.95rem, 4.4vw, 2.7rem);
+  font-weight: 700;
+  letter-spacing: -.024em;
+  line-height: 1.14;
+  color: #f8ece4;
+  text-wrap: balance;
+}
+
+.hero__role {
+  margin: 14px 0 0;
+  font-size: clamp(.97rem, 2vw, 1.12rem);
+  font-weight: 600;
+  letter-spacing: .005em;
+  color: #efc4ab;
+}
+/* Tiap peran dibungkus supaya pemisah tidak pernah menggantung sendirian di
+   ujung baris. Di HP sempit pembungkus ini ditumpuk (lihat media 480px). */
+.hero__role-item {
+  display: inline-block;
+  white-space: nowrap;
+}
+.hero__role .sep {
+  color: var(--on-dark-accent);
+  padding-inline: 5px;
+  font-style: normal;
+}
+
+/* foto profil bulat, tepat di tengah antara jabatan dan perkenalan.
+   Bisa diklik untuk melihat versi besarnya (lightbox). */
+.hero__photo-link {
+  display: block;
+  width: fit-content;
+  margin: 24px auto 0;
+  border-radius: 50%;
+  cursor: zoom-in;
+}
+.hero__photo-link:focus-visible {
+  outline: 3px solid var(--on-dark-accent);
+  outline-offset: 7px;
+}
+
+.hero__photo {
+  display: block;
+  width: clamp(190px, 26vw, 280px);
+  height: clamp(190px, 26vw, 280px);
+  margin: 24px auto 0;
+  object-fit: cover;
+  border-radius: 50%;
+  background: var(--brand-soft);
+  border: 6px solid rgba(255, 255, 255, .92);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .18), var(--shadow-lg);
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1);
+}
+.hero__photo-link:hover .hero__photo { transform: scale(1.025); }
+
+.hero__lead {
+  margin: 18px auto 0;
+  max-width: 60ch;
+  font-size: 1.03rem;
+  font-weight: 400;
+  line-height: 1.8;
+  color: rgba(246, 231, 221, .82);
+}
+
+/* ------------------------ section ------------------------ */
+
+.section { padding-block: clamp(56px, 6.5vw, 92px); }
+
+/* Pengalaman Kerja dimulai lebih dekat ke bagian Profil, supaya judulnya
+   tidak menggantung jauh di bawah hero. */
+#pengalaman { padding-top: clamp(26px, 3vw, 38px); }
+
+.section--alt {
+  background: var(--bg-alt);
+  border-block: 1px solid var(--line);
+}
+
+.section--dark {
+  position: relative;
+  background: var(--brand-deep);
+  color: var(--on-dark);
+}
+.section--dark .container { position: relative; z-index: 1; }
+.section--dark .contact__lead { color: var(--on-dark-muted); }
+
+/* Kontak: tinggi mengikuti isinya, tidak dipaksa satu layar penuh - kalau
+   dipaksa, bagian bawahnya justru menyisakan ruang kosong yang lebar. */
+#kontak {
+  padding-block: clamp(48px, 6vw, 76px);
+}
+#kontak > .container { width: 100%; }
+
+.section__title {
+  position: relative;
+  margin-bottom: 32px;
+  padding-bottom: 14px;
+  font-size: clamp(1.32rem, 2.6vw, 1.55rem);
+  font-weight: 700;
+  letter-spacing: -.018em;
+  text-align: center;
+  text-wrap: balance;
+}
+.section__title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 44px;
+  height: 3px;
+  margin-left: -22px;
+  border-radius: 3px;
+  background: var(--brand);
+}
+.section__title--light { color: #fff; }
+.section__title--light::after { background: var(--on-dark-accent); }
+/* judul kelompok di dalam satu section — mis. "Pengalaman Kerja" dan
+   "Pengalaman Magang" di dalam section Pengalaman (section itu sendiri
+   sekarang tanpa judul, tapi tetap jadi tujuan tautan navigasi) */
+.group__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--brand-dark);
+}
+.group__title::before,
+.group__title::after {
+  content: "";
+  flex: 0 1 54px;
+  height: 1px;
+  background: var(--brand-tint);
+}
+/* kepala kelompok: judul kecil bergaris, dipakai untuk memisahkan dua
+   kelompok isi di dalam satu bagian (mis. "Lampiran" di Pendidikan) */
+.group__head { margin: 0 0 22px; text-align: center; }
+.group__head .group__title { margin-bottom: 0; }
+
+/* Kepala "Rekam Jejak / Pengalaman Kerja" dan kalimat di bawahnya dibuat
+   rapat supaya terbaca sebagai satu blok, bukan tiga baris terpisah jauh. */
+#pengalaman .group__head { margin-bottom: 12px; }
+#pengalaman .group__eyebrow { margin-bottom: 6px; }
+#pengalaman .section__lead { margin-top: 0; margin-bottom: 22px; }
+
+/* label kecil di atas judul kelompok */
+.group__eyebrow {
+  margin: 0 0 10px;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+/* kalimat pembuka & penutup di dalam satu bagian */
+.section__lead {
+  max-width: 62ch;
+  margin: -4px auto 26px;
+  text-align: center;
+  font-size: .95rem;
+  color: var(--body);
+}
+.section__outro {
+  max-width: 62ch;
+  margin: 26px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  font-size: .9rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 9px;
+  font-family: var(--font-body);
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .19em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.section__title--light .eyebrow { color: var(--on-dark-accent); }
+
+/* ----------------------- pengalaman ---------------------- */
+
+/* Sasana tampil penuh selebar kolom, Lakes & Ganesha berdampingan
+   (kiri = Lakes, kanan = Ganesha Operation). Semua kartu rata tepi. */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+.timeline__item:first-child { grid-column: 1 / -1; }
+
+/* biar tinggi kartu kiri & kanan sama, bawahnya jadi rata */
+.timeline__item { display: flex; }
+.timeline__item > .timeline__card { flex: 1 1 auto; }
+
+/* poin pekerjaan ikut selebar kartu, supaya lurus dengan kartu buktinya */
+.timeline__card .bullets { max-width: none; }
+
+/* kartu bukti ditaruh SETELAH poin-poin kerja (urutan sekarang) */
+.timeline__card .bullets + .proof-row { margin-top: 22px; }
+
+/* Dua kartu yang berdampingan (Lakes & Ganesha) dipatok supaya tiap poin
+   menempati tiga baris yang sama, dan keterangan suratnya dua baris.
+   Jadi waktu jendela dikecilkan, baris kiri dan kanan tetap sejajar
+   walau panjang kalimatnya sedikit berbeda. */
+#pengalaman .timeline__item:nth-child(2) .bullets li,
+#pengalaman .timeline__item:nth-child(3) .bullets li { min-height: 5.25em; margin-bottom: 2px; }
+
+#pengalaman .timeline__item:nth-child(2) .proof__desc,
+#pengalaman .timeline__item:nth-child(3) .proof__desc { min-height: 3.2em; }
+
+/* isi kartu disusun ke bawah; daftar poin mengambil sisa ruang, sehingga
+   kartu bukti (surat/sertifikat) selalu menempel di dasar kartu. Hasilnya
+   dua kartu yang berdampingan punya garis bawah yang sama rata — tidak
+   lagi naik-turun mengikuti panjang tulisan poinnya. */
+.timeline__card { display: flex; flex-direction: column; }
+.timeline__card > .bullets { flex: 1 1 auto; }
+
+/* kartu surat (tanpa gambar) di Pengalaman Kerja dibuat sama tinggi, supaya
+   dua kartu yang berdampingan sejajar juga sisi atasnya */
+#pengalaman .proof--doc .proof__body { min-height: 118px; }
+#pengalaman .proof-row .proof--doc { min-height: 248px; }
+
+/* Kartu pengalaman yang berdampingan (Lakes & Ganesha) dibiarkan mengalir
+   apa adanya. Dulu ruangnya dicadangkan setinggi baris terbanyak, tapi itu
+   justru menyisakan celah kosong antara nama PT dan alamatnya. */
+
+.timeline__card {
+  margin-inline: auto;
+  padding: 28px 28px 26px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .25s ease, border-color .25s ease;
+}
+.timeline__card:hover {
+  border-color: var(--brand-tint);
+  box-shadow: var(--shadow);
+}
+
+.timeline__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+/* Lencana bulat berisi inisial perusahaan. Kalau logonya sudah ada,
+   pakai .avatar--logo di bawah ini. */
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: .9rem;
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: #fff;
+  background: var(--brand);
+}
+
+/* inisial yang agak panjang (mis. "UNIKOM") dikecilkan supaya tetap muat
+   di dalam lencana bulat */
+.avatar--text { font-size: .56rem; letter-spacing: .04em; }
+
+/* versi logo asli: bulat, latar putih + cincin tipis — senada dengan foto
+   profil di hero yang juga bulat berbingkai. Latar putih dipakai (bukan
+   transparan) karena sebagian logo punya latar putih bawaan: kalau lencananya
+   putih, sudut-sudut itu menyatu dan yang kelihatan cuma tanda logonya. */
+.avatar--logo {
+  display: block;
+  width: 58px;
+  height: 58px;
+  padding: 9px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--brand-tint);
+  object-fit: contain;
+}
+
+/* Kepala kartu mengikuti pola hero: identitas (nama PT) → logo → posisi →
+   periode. Nama PT jadi baris paling menonjol, posisinya menyusul di bawah
+   logo seperti baris peran di hero. */
+.timeline__company {
+  margin: 0;
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: -.012em;
+  color: var(--ink);
+}
+
+/* Setelah posisi asli, 1-2 wilayah kerja ditulis sebagai penjelas. Warnanya
+   dibuat lebih kalem supaya terbaca sebagai keterangan, bukan jabatan kedua. */
+.timeline__role-alt {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.timeline__role {
+  margin: 0;
+  max-width: 54ch;
+  font-size: .95rem;
+  font-weight: 500;
+  color: var(--body);
+}
+
+/* Lokasi perusahaan/sekolah, tepat di bawah nama. Teksnya kecil dan tenang,
+   tapi bisa diklik untuk membuka lokasinya di Google Maps. */
+.timeline__place {
+  font-size: .8rem;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color .2s ease, border-color .2s ease;
+}
+.timeline__place:hover {
+  color: var(--brand-dark);
+  border-bottom-color: var(--brand-tint);
+  text-decoration: none;
+}
+
+/* Sama seperti .timeline__place, lokasi sekolah/Universitas punya aturan
+   terpisah supaya tulisannya bisa tampil sebagai tautan tanpa gaya underline. */
+.timeline__meta {
+  font-size: .82rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.timeline__meta:hover {
+  color: var(--brand-dark);
+  text-decoration: none;
+}
+
+/* Nama PT juga bisa diklik - membuka lokasi kantornya, sama seperti alamat. */
+.timeline__company-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color .2s ease, border-color .2s ease;
+}
+.timeline__company-link:hover {
+  color: var(--brand-dark);
+  border-bottom-color: var(--brand-tint);
+  text-decoration: none;
+}
+
+/* Logo perusahaan bisa diklik untuk melihat versi besarnya. */
+.avatar-link {
+  display: inline-flex;
+  border-radius: 50%;
+  cursor: zoom-in;
+}
+.avatar-link:focus-visible { outline: 3px solid var(--brand-tint); outline-offset: 4px; }
+.avatar-link .avatar { transition: transform .25s ease; }
+.avatar-link:hover .avatar { transform: scale(1.06); }
+
+/* Pendidikan: dua kartu berdampingan seperti Lakes & Ganesha (tanpa kartu
+   penuh selebar kolom seperti Sasana). Karena tiap kartu hanya selebar
+   setengah kolom, dokumen di dalamnya disusun ke bawah — kalau dipaksa dua
+   kolom, gambar sertifikatnya jadi terlalu kecil. */
+.timeline--edu > .timeline__item:first-child { grid-column: auto; }
+.timeline--edu .proof-row { grid-template-columns: 1fr; }
+
+/* baris dokumen menempel di dasar kartu: meski kepala kartunya beda tinggi
+   (nama institusi yang panjang sampai dua baris, yang pendek cuma satu),
+   Surat Keterangan Lulus & Sertifikat Magang kiri-kanan tetap sejajar.
+   width: 100% wajib — kartu menyusun isi dengan flex, dan margin auto pada
+   .proof-row membuatnya menyusut mengikuti isi kalau tidak dikunci. */
+.timeline--edu .timeline__card { display: flex; flex-direction: column; }
+.timeline--edu .timeline__head { flex: none; }
+/* dua kartu bukti ditumpuk (IPK di atas, sertifikat di bawah), tapi dibuat
+   ringkas supaya seluruh bagian Pendidikan tetap muat dalam satu layar. */
+.timeline--edu .proof-row { grid-template-columns: 1fr; gap: 10px; margin-top: auto; width: 100%; }
+#pendidikan .proof__media img { max-height: 168px; object-fit: cover; }
+
+/* Bagian Pendidikan dipadatkan: jarak antarbagian dan dalam kartu dikecilkan
+   supaya dua institusi + buktinya selesai dalam satu tampilan. */
+#pendidikan { padding-block: clamp(36px, 4vw, 56px); }
+#pendidikan .section__title { margin-bottom: 22px; }
+#pendidikan .timeline__card { padding: 20px 20px 18px; }
+#pendidikan .timeline__head { margin-bottom: 14px; padding-bottom: 14px; gap: 5px; }
+#pendidikan .timeline__company { font-size: .96rem; line-height: 1.3; }
+#pendidikan .timeline__role { font-size: .84rem; line-height: 1.45; }
+#pendidikan .timeline__meta { font-size: .76rem; }
+#pendidikan .timeline__date { font-size: .66rem; letter-spacing: .08em; white-space: nowrap; }
+#pendidikan .avatar--logo { width: 46px; height: 46px; }
+#pendidikan .proof > .proof__title { min-height: 46px; padding: 8px 10px; font-size: .82rem; }
+#pendidikan .proof__body { padding: 10px 12px 12px; gap: 6px; }
+#pendidikan .proof__stat { padding: 10px 10px 12px; }
+#pendidikan .proof__value { font-size: 1.42rem; }
+
+/* Kartu Pendidikan (IPK & nilai rata-rata): angka plakat di kiri, sampul
+   dokumen di kanan. Sertifikat aslinya TIDAK dipajang sebagai foto besar di
+   kartu — yang tampil cuma sampul ilustrasinya, dan berkas aslinya dibuka
+   lewat tombol di dalamnya (pratinjau lightbox). */
+#pendidikan .proof__body--row { flex-direction: row; align-items: stretch; text-align: left; gap: 12px; }
+#pendidikan .proof__body--row .proof__stat { width: 118px; flex: none; }
+#pendidikan .proof__body--row .proof__doc { flex: 1 1 auto; align-items: center; }
+#pendidikan .proof__body--row .proof__doc .proof__link { margin: 0 0 0 auto; padding: 6px 14px; font-size: .72rem; }
+
+.proof__doc { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; }
+.proof__doc-illu { display: block; flex: none; width: 76px; line-height: 0; }
+.proof__doc-illu svg { display: block; width: 100%; height: auto; }
+.proof__doc-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.proof__doc-title { font-size: .84rem; font-weight: 600; color: var(--ink); }
+.proof__doc-sub { font-size: .72rem; color: var(--muted); }
+
+/* Periode kerja & tanggal pendidikan: sengaja BUKAN pil. Di halaman ini bentuk
+   pil sudah dipakai untuk dua hal lain — tombol (padat terracotta) dan label
+   (pil pucat) — jadi biar tidak terbaca "bisa diklik", keduanya dibuat sebagai
+   baris teks kecil huruf kapital. Tanpa tanda garis/strip di depannya. */
+.timeline__date {
+  margin: 2px 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ------------------------- bullets ----------------------- */
+
+.bullets { max-width: 62ch; margin-inline: auto; }
+
+.bullets li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 11px;
+  font-size: .95rem;
+  line-height: 1.75;
+  text-align: left;
+}
+.bullets li:last-child { margin-bottom: 0; }
+.bullets li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: .75em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+  opacity: .75;
+}
+
+/* --------- deretan kartu bukti, rata tengah ---------- */
+
+/* 2 kartu kiri-kanan per baris — dan 1 di HP.
+   Pakai grid, bukan flex, supaya jumlah kartu per baris PASTI dua berapa pun
+   lebar layarnya (dulu flex bisa jadi 3 kalau layarnya lebar). Kartu terakhir
+   yang "jomblo" dibentangkan menuhin dua kolom sambil dipusatkan, jadi barisnya
+   tidak nyangkut sendirian di kiri dan ukurannya tetap sama dengan kartu lain.
+   Barisnya dibatasi 940px supaya kartunya tidak melar jadi terlalu lebar. */
+.proof-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 940px;
+  margin: 16px auto 0;
+}
+
+.proof-row > .proof:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: 100%;
+  max-width: 462px;
+}
+
+/* ------------------- kartu bukti --------------------- */
+
+.proof {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: inherit;
+  box-shadow: var(--shadow-sm);
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.proof__media {
+  display: block;
+  line-height: 0;
+  background: var(--brand-tint);
+  border-bottom: 1px solid var(--line);
+}
+
+.proof__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform .3s ease;
+}
+
+/* gambar sedikit membesar saat disorot — tanda bahwa kartunya bisa diklik
+   untuk melihat versi besarnya */
+.proof__media:hover img { transform: scale(1.03); }
+
+.proof:has(> .proof__media:hover) {
+  border-color: var(--line-2);
+  box-shadow: var(--shadow);
+}
+
+.proof__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px 16px;
+  text-align: center;
+}
+
+.proof__tag {
+  display: inline-block;
+  padding: 3px 11px;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--brand-deep);
+  font-size: .63rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.proof__title {
+  margin: 0;
+  font-size: .98rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+/* Judul yang duduk langsung di kartu (bukan di dalam .proof__body): jadi
+   "kepala" kartu di atas gambarnya, supaya nama buktinya sudah terbaca
+   sebelum orang melihat fotonya. Garis rambut di bawahnya memisahkan judul
+   dari gambar, jadi kartunya terasa punya tiga bagian: kepala, gambar, isi.
+   Tingginya diunci minimal 64px dan teksnya dipusatkan dua arah: judul yang
+   panjang sampai dua baris pun tidak akan menggeser gambarnya, jadi kartu
+   kiri dan kanan tetap sejajar. */
+.proof > .proof__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-alt);
+  font-size: .93rem;
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* Kartu gambar yang tidak punya tombol tautan: pil labelnya turun ke dasar
+   kartu, sejajar dengan tombol di kartu sebelahnya. Jadi setiap kartu "ditutup"
+   oleh sesuatu (tombol atau pil) dan tingginya terasa seimbang.
+   Hanya berlaku kalau barisannya memang berisi gambar — barisan kartu teks
+   (mis. Proyek) membiarkan labelnya menempel di atas, seperti kartu lainnya. */
+.proof-row:has(.proof__media) .proof:not(:has(.proof__link)) .proof__tag {
+  order: 1;
+  margin-top: auto;
+}
+
+.proof__desc {
+  margin: 0;
+  font-size: .85rem;
+  line-height: 1.6;
+  color: var(--body);
+}
+
+/* Baris kecil di atas judul kartu bukti (mis. "Playlist - YouTube"), supaya
+   kepala kartu punya dua bagian: penanda sumber dan judulnya. */
+.proof__kicker {
+  margin: 14px 14px 0;
+  text-align: center;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+/* Ilustrasi kecil di kartu surat: mengisi ruang kosong tanpa menambah klaim
+   baru - surat aslinya tetap dibuka lewat tombol di bawahnya. */
+.proof__illu {
+  display: block;
+  width: 74px;
+  height: auto;
+  margin: 2px auto 6px;
+}
+
+/* Plakat angka di kartu dokumen Pendidikan (IPK & nilai rata-rata). Panel
+   lunak terracotta dengan label kapital di atas angka besar: fungsinya biar
+   angka itu jadi "bintang" kartu dokumen, bukan sekadar teks yang sama
+   gayanya dengan keterangan biasa. Panelnya pucat (bukan terracotta padat)
+   supaya tidak terbaca tombol — tombol tetap milik .proof__link di bawahnya. */
+.proof__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 100%;
+  margin-top: 2px;
+  padding: 14px 12px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--brand-soft);
+}
+
+.proof__stat-label {
+  font-size: .63rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--body);
+}
+
+.proof__value {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+/* angka pembanding ("/ 4.00", "/ 100"): kecil dan tenang, supaya yang
+   menonjol tetap angka utamanya. */
+.proof__value-sub {
+  display: block;
+  font-size: .76rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* tombol tautan di kartu bukti: sengaja dibuat padat (isi terracotta, teks
+   putih) supaya beda jelas dengan teks biasa maupun dengan pil label yang
+   fungsinya cuma keterangan. Tanpa tanda panah — bentuk tombolnya sendiri
+   sudah jadi tanda bahwa bagian ini bisa diklik. */
+.proof__link {
+  margin-top: auto;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--brand);
+  color: #fff;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+  box-shadow: 0 1px 2px rgba(122, 58, 32, .16);
+  transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.proof__link:hover {
+  background: var(--brand-dark);
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(122, 58, 32, .2);
+}
+
+/* versi "berkas menyusul" dari tombol: bentuk sama tapi pucat + garis putus-
+   putus — sengaja jelas-jelas masih kosong, tidak boleh dianggap bisa diklik.
+   Kalau hover pun jadi apa pun juga kumatikan supaya tidak membodohi orang. */
+.proof__link--soon {
+  border: 1px dashed var(--line-2);
+  background: var(--brand-soft);
+  color: var(--body);
+  cursor: default;
+}
+.proof__link--soon:hover {
+  background: var(--brand-soft);
+  color: var(--body);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Tombol untuk berkas yang belum tersedia (mis. surat lulus, CV). Bentuknya
+   sengaja dibuat garis putus-putus dan tidak reaktif, supaya tidak terbaca
+   sebagai tautan yang bisa diklik. Begitu berkasnya ada, ganti elemen ini
+   dengan <a class="proof__link" href="..."> biasa. */
+.proof__link--soon {
+  border: 1px dashed var(--line-2);
+  background: transparent;
+  color: var(--muted);
+  box-shadow: none;
+  cursor: default;
+}
+.proof__link--soon:hover {
+  background: transparent;
+  color: var(--muted);
+  transform: none;
+  box-shadow: none;
+}
+
+/* dua tombol dalam satu kartu (mis. "Lihat demo" + "Kode di GitHub") —
+   dipakai kartu proyek. Tetap satu bentuk: tombol padat terracotta. */
+.proof__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* kartu tanpa gambar — surat & dokumen internal, jadi teks saja */
+.proof--doc .proof__body { justify-content: center; padding: 24px 21px 22px; }
+
+/* versi dokumen internal: kartu bergaris putus-putus, tidak bisa diklik */
+.proof--locked { border-style: dashed; border-color: var(--line-2); background: var(--bg-alt); }
+.proof--locked .proof__media img { opacity: .7; }
+.proof__tag--locked { background: var(--line); color: var(--muted); }
+
+/* ---------------------- proyek ---------------------- */
+
+/* Kartu proyek sengaja bersih: judul lengkap, penjelasan singkat, dan tombol
+   GitHub di dasar kartu. Kalau nanti sudah punya tangkapan layar proyek,
+   gambar cukup diselipkan sebelum judul — kartu gambar bukti di Sertifikasi
+   adalah contoh strukturnya. */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.project-card:hover {
+  border-color: var(--line-2);
+  box-shadow: var(--shadow);
+}
+
+/* pratinjau gambar di atas kartu */
+.project-card__media {
+  position: relative;
+  display: block;
+  line-height: 0;
+  background: var(--brand-tint);
+  border-bottom: 1px solid var(--line);
+}
+.project-card__media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform .35s ease;
+}
+.project-card:hover .project-card__media img { transform: scale(1.03); }
+
+/* tombol menuju repositori, menempel di dasar kartu */
+.project-card__link { margin-top: auto; }
+.project-card__link:hover { text-decoration: none; }
+
+.project-card__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 18px 20px 20px;
+  text-align: center;
+}
+/* Judul jadi kepala kartu, di atas gambar: nama proyek terbaca lebih dulu,
+   dan tinggi minimumnya dikunci supaya kartu kiri-kanan sejajar walau
+   judulnya satu atau dua baris. */
+.project-card__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 72px;
+  margin: 0;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-alt);
+  font-size: .95rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  color: var(--ink);
+}
+.project-card__desc {
+  margin: 0 0 10px;
+  font-size: .85rem;
+  line-height: 1.6;
+  color: var(--body);
+}
+
+@media (max-width: 620px) {
+  .project-grid { grid-template-columns: 1fr; }
+}
+
+/* kartu teks di Sertifikasi (TOEFL) tidak punya gambar; supaya posisinya sama
+   dengan kartu sertifikat di sampingnya, keterangan dan pilnya diturunkan ke
+   dasar kartu, satu garis dengan pil/tombol kartu gambar */
+#sertifikasi .proof--doc .proof__body > .proof__desc { margin-top: auto; }
+
+/* catatan kecil di dalam kartu, mis. "Ditunjukkan saat proses interview." */
+.proof__note {
+  margin: 0;
+  font-size: .74rem;
+  line-height: 1.5;
+  color: var(--muted);
+  font-style: italic;
+}
+
+a.proof:hover,
+a.proof:focus-visible {
+  border-color: var(--brand);
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+}
+a.proof:hover .proof__media img { transform: scale(1.03); }
+
+@media (max-width: 620px) {
+  /* di HP barisan bukti jadi satu kolom, kartunya selebar layar */
+  .proof-row { grid-template-columns: 1fr; gap: 14px; }
+  .proof__body { padding: 14px 15px 16px; gap: 8px; }
+  .proof__title { font-size: .93rem; }
+  .proof__desc { font-size: .82rem; }
+  .proof__link { font-size: .75rem; padding: 6px 13px; }
+  /* kartu IPK Pendidikan: angka plakat turun ke bawah, sampul dokumen
+     menempel di atas tombolnya */
+  #pendidikan .proof__body--row { flex-direction: column; }
+  #pendidikan .proof__body--row .proof__stat { width: 100%; }
+  #pendidikan .proof__body--row .proof__doc { width: 100%; }
+}
+
+/* --------------- lightbox (CSS murni) ------------------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 48px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .24s ease, visibility .24s ease;
+}
+.lightbox:target {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Saat pratinjau terbuka, halaman di belakangnya tidak ikut tergulir. */
+body:has(.lightbox:target) { overflow: hidden; }
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 18, 12, .93);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.lightbox__figure {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: min(1040px, 100%);
+  margin: 0;
+  animation: lightbox-in .3s cubic-bezier(.22, 1, .36, 1) both;
+}
+/* Pratinjau logo perusahaan: lebih besar, duduk di atas bidang putih supaya
+   logo transparan tetap terbaca. */
+.lightbox--logo .lightbox__figure img {
+  width: min(340px, 68vw);
+  max-height: 60vh;
+  padding: 26px;
+  background: #fff;
+  border-radius: 20px;
+}
+@keyframes lightbox-in {
+  from { opacity: 0; transform: scale(.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.lightbox__figure img {
+  display: block;
+  max-width: 100%;
+  max-height: 76vh;
+  width: auto;
+  height: auto;
+  margin-inline: auto;
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+}
+
+.lightbox__figure figcaption {
+  text-align: center;
+  font-size: .89rem;
+  font-weight: 500;
+  color: var(--on-dark);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: clamp(12px, 3vw, 28px);
+  right: clamp(12px, 3vw, 28px);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, .24);
+  color: #fff;
+  font-size: 1.65rem;
+  line-height: 1;
+  transition: background .2s ease;
+}
+.lightbox__close:hover { background: rgba(255, 255, 255, .28); text-decoration: none; }
+
+/* kartu sertifikasi memakai kartu bukti yang sama seperti di Pengalaman —
+   lihat .proof-row / .proof di atas. Cukup taruh <article class="proof">
+   di dalam <div class="proof-row">. */
+
+/* ------------------------- kontak ------------------------ */
+
+.contact__lead {
+  max-width: 58ch;
+  margin: -12px auto 32px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Kontak: satu bulatan besar per kanal. Ikon, nama, dan alamatnya menyatu di
+   dalam bulatan itu — ikonnya sendiri tanpa bingkai. */
+.contact-bullets {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.contact-bullet {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 264px;
+  aspect-ratio: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .05);
+  color: var(--on-dark);
+  text-align: center;
+  transition: background .25s ease, border-color .25s ease, transform .25s ease;
+}
+
+.contact-bullet__circle {
+  display: grid;
+  place-items: center;
+  background: none;
+  border: 0;
+}
+.contact-bullet:hover {
+  text-decoration: none;
+  background: rgba(255, 255, 255, .09);
+  border-color: rgba(255, 255, 255, .34);
+  transform: translateY(-3px);
+}
+.contact-bullet:hover .contact-bullet__circle svg { fill: #fff; }
+.contact-bullet__circle svg { width: 34px; height: 34px; fill: var(--on-dark-accent); transition: fill .2s ease; }
+
+.contact-bullet__label {
+  margin-top: 12px;
+  font-size: .71rem;
+  font-weight: 600;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--on-dark-accent);
+}
+
+.contact-bullet__value {
+  width: 100%;
+  max-width: 100%;
+  padding-inline: 4px;
+  font-size: clamp(.56rem, 1.7vw, .75rem);
+  letter-spacing: -.008em;
+  line-height: 1.5;
+  text-align: center;
+  color: rgba(255, 255, 255, .8);
+  white-space: nowrap;
+}
+
+/* Kedua tautan di footer: hanya teks + ikon, tanpa pil. Garis bawah tipis
+   jadi penanda bahwa keduanya bisa diklik. */
+.footer__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+}
+
+.footer__cv,
+.footer__top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: var(--on-dark);
+  font-size: .86rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(240, 184, 154, .45);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  transition: color .2s ease, text-decoration-color .2s ease;
+}
+.footer__cv svg,
+.footer__top svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--on-dark-accent);
+  transition: fill .2s ease;
+}
+.footer__cv:hover,
+.footer__top:hover {
+  color: #fff;
+  text-decoration-color: var(--on-dark-accent);
+  text-decoration-thickness: 1px;
+}
+.footer__cv:hover svg,
+.footer__top:hover svg { fill: #fff; }
+
+/* ------------------------- footer ------------------------ */
+
+.footer {
+  background: var(--brand-deep);
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  padding-block: 30px;
+  color: var(--on-dark-muted);
+  font-size: .86rem;
+}
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.footer__inner p { margin: 0; }
+
+.footer__top { color: var(--on-dark); font-weight: 500; }
+
+/* ------------------- animasi saat digulir ----------------- */
+
+/* ---------------------- animasi & gerak ------------------- */
+
+/* masuknya isi hero: satu per satu, pelan, dari bawah */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* foto profil "bernapas" pelan — cuma bayangannya yang bergerak, jadi
+   fotonya tidak ikut bergoyang dan tetap tajam */
+@keyframes photo-breathe {
+  0%, 100% {
+    box-shadow: 0 0 0 1px var(--brand-tint), 0 0 0 6px rgba(194, 100, 60, .10),
+                0 16px 34px rgba(46, 30, 22, .12);
+  }
+  50% {
+    box-shadow: 0 0 0 1px var(--brand-tint), 0 0 0 13px rgba(194, 100, 60, .05),
+                0 22px 44px rgba(46, 30, 22, .17);
+  }
+}
+
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__name  { animation: rise-in .7s cubic-bezier(.22, 1, .36, 1) backwards; }
+  .hero__photo { animation: rise-in .8s .08s cubic-bezier(.22, 1, .36, 1) backwards,
+                            photo-breathe 7s 1s ease-in-out infinite; }
+  .hero__role  { animation: rise-in .8s .16s cubic-bezier(.22, 1, .36, 1) backwards; }
+  .hero__lead  { animation: rise-in .9s .24s cubic-bezier(.22, 1, .36, 1) backwards; }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .section__title,
+    .group__head,
+    .timeline__item,
+    .contact-bullet {
+      animation: reveal-in linear backwards;
+      animation-timeline: view();
+      animation-range: entry 6% cover 30%;
+    }
+
+    /* kartu bukti ikut muncul, dengan jeda kecil bergiliran supaya
+       deretannya terasa "mengalir", bukan muncul serentak */
+    .proof {
+      animation: reveal-in linear backwards;
+      animation-timeline: view();
+      animation-range: entry 4% cover 26%;
+    }
+    .proof-row > .proof:nth-child(2) { animation-range: entry 10% cover 32%; }
+    .proof-row > .proof:nth-child(3) { animation-range: entry 16% cover 38%; }
+    .proof-row > .proof:nth-child(4) { animation-range: entry 22% cover 44%; }
+    .proof-row > .proof:nth-child(5) { animation-range: entry 28% cover 50%; }
+    .proof-row > .proof:nth-child(6) { animation-range: entry 34% cover 56%; }
+  }
+}
+
+/* sentuhan kecil saat kursor menyentuh kartu: logo perusahaan membesar
+   sedikit (tanpa dimiringkan), titik poin kerja membesar sedikit */
+.avatar { transition: transform .4s cubic-bezier(.22, 1, .36, 1); }
+.timeline__card:hover .avatar { transform: scale(1.04); }
+
+.bullets li::before { transition: transform .3s cubic-bezier(.22, 1, .36, 1), opacity .3s ease; }
+.timeline__card:hover .bullets li::before { transform: scale(1.4); opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .progress { animation: none !important; }
+  .progress { transform: scaleX(0); }
+  * { transition-duration: .01ms !important; }
+}
+
+/* ----------------------- responsif ----------------------- */
+
+/* Bulatan kontak menyusut sedikit supaya ketiganya tetap muat sebaris di HP */
+@media (max-width: 420px) {
+  .contact-bullets { gap: 10px; }
+  .contact-bullet { padding: 12px; }
+  .contact-bullet__circle svg { width: 26px; height: 26px; }
+  .contact-bullet__label { margin-top: 8px; font-size: .62rem; letter-spacing: .08em; }
+}
+
+/* Lakes & Ganesha (dan pasangan di Pendidikan) TIDAK pernah menumpuk:
+   berapa pun lebar layarnya, kartu-kartu tetap dua-dua berdampingan.
+   Pasangan kartu inilah yang membuat tampilannya konsisten dengan
+   tampilan di laptop — juga saat jendelanya diperkecil. */
+
+@media (max-width: 480px) {
+  /* Di HP sempit, tiga peran ditumpuk tanpa titik pemisah supaya tidak ada
+     bullet yang menggantung di ujung baris. */
+  .hero__role {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.5;
+  }
+  .hero__role .sep { display: none; }
+}
+
+/* di layar sempit, menu jadi strip yang bisa digeser ke samping */
+@media (max-width: 880px) {
+  .nav__menu {
+    flex: 1 1 auto;
+    justify-content: safe center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+  }
+  .nav__menu::-webkit-scrollbar { display: none; }
+
+  .nav__menu a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 7px 12px;
+    font-size: .86rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .container { padding-inline: 20px; }
+  .timeline__card { padding: 22px 18px 22px; }
+}
+
+@media (max-width: 640px) {
+  .lightbox__close { width: 38px; height: 38px; font-size: 1.4rem; }
+  .lightbox__figure img { max-height: 68vh; }
+}
+
+/* --------------------- cetak / print --------------------- */
+
+@media print {
+  .nav, .progress, .footer__top, .footer__links,
+  .skip-link, .lightbox{ display: none !important; }
+
+  /* animasi gulir tidak ada di kertas — pastikan semua isi tetap terlihat */
+  *, *::before, *::after { animation: none !important; opacity: 1 !important; transform: none !important; }
+
+  body { font-size: 11pt; color: #000; background: #fff; }
+
+  .hero { background: #fff; }
+  .section { padding-block: 20px; break-inside: avoid; }
+  .section--alt { background: #fff; border: 0; }
+  .section--dark { background: #fff; color: #000; }
+  .contact-bullet__value, .section__title--light, .eyebrow { color: #000; }
+  .contact-bullet { color: #000; }
+  .contact-bullet__circle { background: #fff; border-color: #ccc; }
+  .contact-bullet__circle svg { fill: #000; }
+  .contact-bullet__label { color: #555; }
+
+  .timeline__card {
+    box-shadow: none;
+    border-color: #ccc;
+    break-inside: avoid;
+    transform: none !important;
+  }
+
+  /* kartu bukti & kontak tidak terpotong di tengah halaman */
+  .proof, .contact-bullet { break-inside: avoid; }
+  .proof__media img { max-height: 210px; }
+}
+

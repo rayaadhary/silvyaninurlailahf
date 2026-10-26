@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 130" role="img" aria-label="Kemenag Kota Bandung">
+  <rect x="1" y="1" width="378" height="128" rx="16" fill="#ffffff" stroke="#efe3da" stroke-width="2"/>
+  <circle cx="62" cy="65" r="30" fill="#fbeee7" stroke="#f7e4d9" stroke-width="2"/>
+  <text x="62" y="65" text-anchor="middle" dominant-baseline="central" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#b65a33">KA</text>
+  <text x="110" y="56" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#2e1e16">Kemenag Kota Bandung</text>
+  <text x="110" y="80" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="500" fill="#7d6857">Magang - 2023</text>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Sertifikat Magang">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fdf9f6"/>
+      <stop offset="1" stop-color="#f9ece4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="30" y="30" width="1540" height="840" rx="34" fill="none" stroke="#f0dbd0" stroke-width="5" stroke-dasharray="24 18"/>
+  <g transform="translate(800,300)">
+    <rect x="-130" y="-100" width="260" height="200" rx="20" fill="#ffffff" stroke="#f0dbd0" stroke-width="6"/>
+    <circle cx="-56" cy="-40" r="22" fill="#fbeee7"/>
+    <path d="M-130 100 L-34 -6 L22 100 Z" fill="#fbeee7"/>
+    <path d="M-6 100 L74 -22 L130 100 Z" fill="#f3ddcf"/>
+  </g>
+  <text x="800" y="560" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="54" font-weight="700" fill="#7a3a20">Sertifikat Magang</text>
+  <text x="800" y="622" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="30" font-weight="600" fill="#a86a4a">Kemenag Kota Bandung</text>
+  <text x="800" y="712" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="27" font-weight="500" fill="#b8a496">Ganti file ini dengan gambar asli kamu</text>
+</svg>

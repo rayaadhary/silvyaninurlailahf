@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Pratinjau aplikasi survei layanan">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fdf9f6"/>
+      <stop offset="1" stop-color="#f7e7dd"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1420" cy="110" r="230" fill="#ffffff" opacity="0.5"/>
+
+  <g>
+    <rect x="300" y="120" width="1000" height="660" rx="26" fill="#ffffff" stroke="#f0dbd0" stroke-width="4"/>
+    <!-- title bar -->
+    <line x1="300" y1="190" x2="1300" y2="190" stroke="#f6e6dc" stroke-width="4"/>
+    <circle cx="340" cy="155" r="9" fill="#f3ddcf"/>
+    <circle cx="372" cy="155" r="9" fill="#f3ddcf"/>
+    <circle cx="404" cy="155" r="9" fill="#f3ddcf"/>
+    <rect x="1120" y="140" width="150" height="30" rx="15" fill="#fdf1e9"/>
+
+    <!-- sidebar -->
+    <rect x="330" y="226" width="196" height="516" rx="18" fill="#fdf7f3"/>
+    <rect x="356" y="256" width="140" height="16" rx="8" fill="#eccbb8"/>
+    <rect x="356" y="300" width="120" height="14" rx="7" fill="#f3ddcf"/>
+    <rect x="356" y="336" width="132" height="14" rx="7" fill="#f3ddcf"/>
+    <rect x="356" y="372" width="104" height="14" rx="7" fill="#f3ddcf"/>
+    <rect x="356" y="408" width="126" height="14" rx="7" fill="#f3ddcf"/>
+
+    <!-- stat cards -->
+    <rect x="556" y="226" width="226" height="128" rx="18" fill="#fdf1e9"/>
+    <rect x="580" y="252" width="86" height="14" rx="7" fill="#e8bca4"/>
+    <rect x="580" y="286" width="130" height="26" rx="10" fill="#d98b64"/>
+    <rect x="804" y="226" width="226" height="128" rx="18" fill="#f6e6dc"/>
+    <rect x="828" y="252" width="96" height="14" rx="7" fill="#e8bca4"/>
+    <rect x="828" y="286" width="112" height="26" rx="10" fill="#d98b64"/>
+
+    <!-- table rows -->
+    <rect x="556" y="384" width="474" height="18" rx="9" fill="#f6e6dc"/>
+    <g fill="#faf0e9">
+      <rect x="556" y="424" width="474" height="42" rx="12"/>
+      <rect x="556" y="482" width="474" height="42" rx="12"/>
+      <rect x="556" y="540" width="474" height="42" rx="12"/>
+      <rect x="556" y="598" width="474" height="42" rx="12"/>
+    </g>
+    <g fill="#e8bca4">
+      <rect x="576" y="440" width="120" height="12" rx="6"/>
+      <rect x="576" y="498" width="150" height="12" rx="6"/>
+      <rect x="576" y="556" width="104" height="12" rx="6"/>
+      <rect x="576" y="614" width="136" height="12" rx="6"/>
+    </g>
+    <g fill="#f3ddcf">
+      <rect x="900" y="440" width="104" height="12" rx="6"/>
+      <rect x="900" y="498" width="104" height="12" rx="6"/>
+      <rect x="900" y="556" width="104" height="12" rx="6"/>
+      <rect x="900" y="614" width="104" height="12" rx="6"/>
+    </g>
+
+    <!-- right column -->
+    <rect x="1060" y="226" width="210" height="414" rx="18" fill="#fdf7f3"/>
+    <circle cx="1165" cy="330" r="58" fill="none" stroke="#f0dbd0" stroke-width="18"/>
+    <path d="M1165 272 a58 58 0 0 1 50 87" fill="none" stroke="#d98b64" stroke-width="18" stroke-linecap="round"/>
+    <rect x="1100" y="424" width="130" height="14" rx="7" fill="#f3ddcf"/>
+    <rect x="1116" y="456" width="98" height="14" rx="7" fill="#f3ddcf"/>
+  </g>
+</svg>

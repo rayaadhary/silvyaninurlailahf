@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="npsTitle npsDesc">
+  <title id="npsTitle">Grafik Survei Kepuasan Tantri 2026</title>
+  <desc id="npsDesc">Skor kepuasan pengguna Februari sampai Agustus 2026, rata-rata 92 persen dari 70 respons. Nilai dibulatkan: Februari 93, Maret 91, April 91, Mei 93, Juni 91, Juli 93, Agustus 92.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#D2081F"/>
+      <stop offset="0.55" stop-color="#B4041C"/>
+      <stop offset="1" stop-color="#8E0316"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F4683F"/>
+      <stop offset="1" stop-color="#C7051C"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#4A0009" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <circle cx="1110" cy="50" r="240" fill="#ffffff" opacity="0.05"/>
+  <circle cx="60" cy="880" r="200" fill="#ffffff" opacity="0.04"/>
+
+  <!-- header -->
+  <rect x="64" y="64" width="44" height="5" rx="2.5" fill="#F5B93D"/>
+  <text x="64" y="100" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2.2" fill="#F5B93D">KEPUASAN PENGGUNA · 2026</text>
+  <text x="64" y="160" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="50" font-weight="800" letter-spacing="-0.8" fill="#FFFFFF">Survei Kepuasan Tantri</text>
+  <text x="64" y="194" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="18" fill="#FFFFFF" fill-opacity="0.72">Skor kepuasan layanan aplikasi · Februari–Agustus 2026</text>
+
+  <!-- average plaque -->
+  <rect x="872" y="56" width="264" height="148" rx="20" fill="#FFFFFF" fill-opacity="0.10" stroke="#FFFFFF" stroke-opacity="0.24"/>
+  <text x="900" y="94" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1.4" fill="#FFFFFF" fill-opacity="0.7">RATA-RATA 7 BULAN</text>
+  <text x="900" y="158" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="50" font-weight="800" letter-spacing="-1" fill="#F5B93D">92%</text>
+  <text x="900" y="184" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="13" fill="#FFFFFF" fill-opacity="0.72">dari 70 respons</text>
+
+  <!-- chart panel -->
+  <rect x="48" y="232" width="1104" height="508" rx="24" fill="#FFF7F2" filter="url(#softShadow)"/>
+  <text x="88" y="280" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" fill="#2B1B1B">Skor per bulan</text>
+
+  <!-- legend -->
+  <line x1="824" y1="275" x2="852" y2="275" stroke="#C7051C" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.6"/>
+  <text x="860" y="280" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="13" fill="#8A6A64">Rata-rata 92%</text>
+  <text x="1112" y="280" text-anchor="end" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="13" fill="#8A6A64">Skala 89–94</text>
+
+  <!-- grid -->
+  <g stroke="#F1DFD8" stroke-width="1">
+    <line x1="150" y1="330" x2="1090" y2="330"/>
+    <line x1="150" y1="394" x2="1090" y2="394"/>
+    <line x1="150" y1="458" x2="1090" y2="458"/>
+    <line x1="150" y1="522" x2="1090" y2="522"/>
+    <line x1="150" y1="586" x2="1090" y2="586"/>
+  </g>
+  <line x1="150" y1="650" x2="1090" y2="650" stroke="#E5C4BB" stroke-width="1.5"/>
+
+  <g font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="13" fill="#8A6A64" text-anchor="end">
+    <text x="132" y="335">94</text>
+    <text x="132" y="399">93</text>
+    <text x="132" y="463">92</text>
+    <text x="132" y="527">91</text>
+    <text x="132" y="591">90</text>
+    <text x="132" y="655">89</text>
+  </g>
+
+  <!-- bars: Feb 93, Mar 91, Apr 91, Mei 93, Jun 91, Jul 93, Agu 92 -->
+  <g>
+    <rect x="185.14" y="394" width="64" height="256" rx="8" fill="url(#bar)"/>
+    <rect x="319.43" y="522" width="64" height="128" rx="8" fill="url(#bar)"/>
+    <rect x="453.71" y="522" width="64" height="128" rx="8" fill="url(#bar)"/>
+    <rect x="588.00" y="394" width="64" height="256" rx="8" fill="url(#bar)"/>
+    <rect x="722.29" y="522" width="64" height="128" rx="8" fill="url(#bar)"/>
+    <rect x="856.57" y="394" width="64" height="256" rx="8" fill="url(#bar)"/>
+    <rect x="990.86" y="458" width="64" height="192" rx="8" fill="url(#bar)"/>
+  </g>
+
+  <!-- values -->
+  <g font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#2B1B1B" text-anchor="middle">
+    <text x="217.14" y="382">93</text>
+    <text x="351.43" y="510">91</text>
+    <text x="485.71" y="510">91</text>
+    <text x="620.00" y="382">93</text>
+    <text x="754.29" y="510">91</text>
+    <text x="888.57" y="382">93</text>
+    <text x="1022.86" y="446">92</text>
+  </g>
+
+  <!-- average line -->
+  <line x1="150" y1="461" x2="1090" y2="461" stroke="#C7051C" stroke-width="1.5" stroke-dasharray="7 6" opacity="0.5"/>
+
+  <!-- months -->
+  <g font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="16" fill="#7A5A55" text-anchor="middle">
+    <text x="217.14" y="682">Feb</text>
+    <text x="351.43" y="682">Mar</text>
+    <text x="485.71" y="682">Apr</text>
+    <text x="620.00" y="682" font-weight="700" fill="#2B1B1B">Mei</text>
+    <text x="754.29" y="682">Jun</text>
+    <text x="888.57" y="682">Jul</text>
+    <text x="1022.86" y="682">Agu</text>
+  </g>
+
+  <!-- panel footer -->
+  <text x="88" y="716" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="13" fill="#8A6A64">Nilai dibulatkan ke persen terdekat.</text>
+  <text x="1112" y="716" text-anchor="end" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="13" fill="#8A6A64">Sep: belum ada respons</text>
+
+  <!-- stats -->
+  <g font-family="Inter, 'Segoe UI', Arial, sans-serif">
+    <text x="64" y="812" font-size="30" font-weight="800" fill="#FFFFFF">93%</text>
+    <text x="64" y="838" font-size="13" fill="#FFFFFF" fill-opacity="0.66">Tertinggi · Feb, Mei, Jul</text>
+
+    <line x1="406" y1="786" x2="406" y2="842" stroke="#FFFFFF" stroke-opacity="0.2"/>
+
+    <text x="446" y="812" font-size="30" font-weight="800" fill="#FFFFFF">91%</text>
+    <text x="446" y="838" font-size="13" fill="#FFFFFF" fill-opacity="0.66">Terendah · Mar, Apr, Jun</text>
+
+    <line x1="784" y1="786" x2="784" y2="842" stroke="#FFFFFF" stroke-opacity="0.2"/>
+
+    <text x="824" y="812" font-size="30" font-weight="800" fill="#FFFFFF">70</text>
+    <text x="824" y="838" font-size="13" fill="#FFFFFF" fill-opacity="0.66">Respons · 10 merchant/bulan</text>
+  </g>
+
+  <text x="64" y="874" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="12" fill="#FFFFFF" fill-opacity="0.55">Sumber: survei kepuasan pengguna Tantri, Februari–Agustus 2026 (70 respons).</text>
+</svg>
