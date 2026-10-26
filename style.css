@@ -209,6 +209,19 @@ ul { margin: 0; padding: 0; list-style: none; }
   box-shadow: 0 8px 24px rgba(46, 30, 22, .18);
 }
 
+/* versi putih: dipakai selama navbar berada di atas section berlatar putih
+   (Pengalaman, Sertifikasi, Pendidikan) supaya menyatu dengan dasarnya.
+   Di atas Proyek (latar krem) navbar memakai warna standar. */
+.nav--white {
+  background: var(--bg);
+  border-bottom-color: transparent;
+}
+.nav--white.is-scrolled {
+  background: rgba(255, 255, 255, .92);
+  border-bottom-color: var(--line);
+  box-shadow: 0 8px 24px rgba(46, 30, 22, .05);
+}
+
 .nav__inner {
   display: flex;
   align-items: center;

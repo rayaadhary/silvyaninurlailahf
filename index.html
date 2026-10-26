@@ -71,17 +71,14 @@
         <div class="group__head">
           <h2 class="group__title">Pengalaman Kerja</h2>
         </div>
-        <p class="section__lead">
-          Setiap poin pekerjaan langsung ditemani buktinya &mdash; gambar, tautan,
-          atau surat resmi &mdash; bukan dikumpulkan di bagian terpisah.
-        </p>
 
         <div class="timeline">
 
           <article class="timeline__item">
             <div class="timeline__card">
               <div class="timeline__head">
-                <h3 class="timeline__company" translate="no">Sasana Solusi Digital</h3>
+                <h3 class="timeline__company" translate="no"><a class="timeline__company-link" href="https://www.google.com/maps/search/?api=1&amp;query=Sasana+Solusi+Digital+Bandung" target="_blank" rel="noopener">PT. Sasana Solusi Digital</a></h3>
+                <a class="timeline__place" href="https://www.google.com/maps/search/?api=1&amp;query=Sasana+Solusi+Digital+Bandung" target="_blank" rel="noopener">Bandung, Jawa Barat, Indonesia</a>
                 <img class="avatar avatar--logo" src="assets/logo/sasana-solusi-digital.png" alt="Logo Sasana Solusi Digital" width="58" height="58" loading="lazy">
                 <p class="timeline__role">Technical Support <span class="timeline__role-alt">&mdash; Analisis Sistem &amp; Dukungan Produk</span></p>
                 <span class="timeline__date">Feb 2025 &ndash; Sekarang</span>
@@ -162,7 +159,8 @@
           <article class="timeline__item">
             <div class="timeline__card">
               <div class="timeline__head">
-                <h3 class="timeline__company" translate="no">Lakes Konstelasi Data</h3>
+                <h3 class="timeline__company" translate="no"><a class="timeline__company-link" href="https://www.google.com/maps/search/?api=1&amp;query=Lakes+Konstelasi+Data+Bandung" target="_blank" rel="noopener">Lakes Konstelasi Data</a></h3>
+                <a class="timeline__place" href="https://www.google.com/maps/search/?api=1&amp;query=Lakes+Konstelasi+Data+Bandung" target="_blank" rel="noopener">Bandung, Jawa Barat, Indonesia</a>
                 <img class="avatar avatar--logo" src="assets/logo/lakes-konstelasi-data.png" alt="Logo Lakes Konstelasi Data" width="58" height="58" loading="lazy">
                 <p class="timeline__role">IT Support <span class="timeline__role-alt">&mdash; Pelatihan &amp; Pendampingan Pengguna</span></p>
                 <span class="timeline__date">Feb 2024 &ndash; Jan 2025</span>
@@ -196,7 +194,8 @@
           <article class="timeline__item">
             <div class="timeline__card">
               <div class="timeline__head">
-                <h3 class="timeline__company" translate="no">Ganesha Operation</h3>
+                <h3 class="timeline__company" translate="no"><a class="timeline__company-link" href="https://www.google.com/maps/search/?api=1&amp;query=Ganesha+Operation+Bandung" target="_blank" rel="noopener">Ganesha Operation</a></h3>
+                <a class="timeline__place" href="https://www.google.com/maps/search/?api=1&amp;query=Ganesha+Operation+Bandung" target="_blank" rel="noopener">Bandung, Jawa Barat, Indonesia</a>
                 <img class="avatar avatar--logo" src="assets/logo/ganesha-operation.png" alt="Logo Ganesha Operation" width="58" height="58" loading="lazy">
                 <p class="timeline__role">Business Analyst <span class="timeline__role-alt">&mdash; Perancangan PRD &amp; Pengujian UAT</span></p>
                 <span class="timeline__date">Agu 2022 &ndash; Jan 2023</span>
@@ -473,7 +472,7 @@
     <div class="lightbox" id="foto-lb" role="dialog" aria-modal="true" aria-label="Pratinjau: Foto profil">
       <a class="lightbox__backdrop" href="#hero" aria-label="Tutup pratinjau"></a>
       <figure class="lightbox__figure">
-        <img src="assets/foto-profil.jpg" alt="Foto Silvyani Nurlaila Husnina Fajrin">
+        <img src="assets/Silvy.jpeg" alt="Foto Silvyani Nurlaila Husnina Fajrin">
         <figcaption>Silvyani Nurlaila Husnina Fajrin</figcaption>
       </figure>
       <a class="lightbox__close" href="#hero" aria-label="Tutup">&times;</a>
@@ -605,20 +604,19 @@
     const bar = document.querySelector('.progress');
     const links = Array.from(document.querySelectorAll('.nav__menu a'));
     const parts = links.map(a => document.querySelector(a.getAttribute('href')));
-    const darkZones = Array.from(document.querySelectorAll('.hero, #kontak'));
+    const lightParts = ['pengalaman', 'sertifikasi', 'pendidikan'];
 
     function update() {
       nav.classList.toggle('is-scrolled', window.scrollY > 8);
-      nav.classList.toggle('nav--dark', darkZones.some(el => {
-        const r = el.getBoundingClientRect();
-        return r.top <= 0 && r.bottom > nav.offsetHeight;
-      }));
       const probe = window.scrollY + nav.offsetHeight + 48;
       let target = parts[0];
       parts.forEach(part => { if (part && part.offsetTop <= probe) target = part; });
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
         target = parts[parts.length - 1];
       }
+      const dark = target.id === 'hero' || target.id === 'kontak';
+      nav.classList.toggle('nav--dark', dark);
+      nav.classList.toggle('nav--white', !dark && lightParts.includes(target.id));
       links.forEach(a => {
         const on = a.getAttribute('href') === '#' + target.id;
         a.classList.toggle('is-active', on);
